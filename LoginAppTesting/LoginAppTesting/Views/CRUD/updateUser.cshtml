@@ -1,0 +1,43 @@
+﻿@inject LoginAppTesting.Context.BaseContext context;
+@inject UserManager<IdentityUser> userManager;
+@inject RoleManager<IdentityRole> roleManager;
+@model UpdateViewModel; 
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var allRoles = roleManager.Roles.ToList();
+    var userName = @ViewBag.User.UserName;
+}
+
+ 
+
+<div class="m-5">
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Update User Data</h5>
+            <form asp-action="updateUser" method="post" asp-controller="CRUD" asp-route-Id="@ViewBag.User.Id">
+                <div asp-validation-summary=All class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Username</label>
+                    <input asp-for="Username" value="@userName" class="form-control" id="user" aria-describedby="user">
+                </div>
+                <select asp-for="RoleId" class="form-select" aria-label="Default select example">
+                    @foreach (var role in allRoles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+
+                </select>
+
+               
+                <div class="d-grid gap-2 d-md-block">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-danger" type="button" asp-action="crudTable" asp-controller="CRUD" >Cancel</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

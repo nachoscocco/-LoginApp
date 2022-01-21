@@ -1,0 +1,55 @@
+﻿@inject LoginAppTesting.Context.BaseContext context;
+@inject UserManager<IdentityUser> userManager;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Role</th>
+            <th scope="col">Active</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    @foreach (IdentityUser user in context.Users)
+    {
+        var roles = await userManager.GetRolesAsync(user);
+        var rolNow = roles.ToList().FirstOrDefault();
+
+        <tbsody>
+            <tr>
+                <th scope="row"></th>
+                <td>@user.UserName</td>
+                <td>@rolNow</td>
+                <td>@user.LockoutEnabled</td>
+                <td> 
+                    @if(user.LockoutEnabled)
+                    { 
+                        <div>
+                            <div class="d-grid gap-2 d-md-block">
+                                <a class="btn btn-primary" type="button" asp-action="updateUser" asp-controller="CRUD" asp-route-Id="@user.Id">Update User </a>
+                                <a class="btn btn-danger" type="button" asp-action="switchUserState" asp-controller="CRUD" asp-route-Id="@user.Id" >Delete User </a>
+
+                            </div>
+                        </div>
+                        }
+                        else { 
+                        <div>
+                            <div class="d-grid gap-2 d-md-block">
+                                <a class="btn btn-primary" type="button" asp-action="updateUser" asp-controller="CRUD" asp-route-Id="@user.Id">Update User </a>
+                                <a class="btn btn-success" type="button" asp-action="switchUserState" asp-controller="CRUD" asp-route-Id="@user.Id">Allow User </a>
+
+                            </div>
+                        </div>
+                            }                 
+                </td>
+            </tr>
+
+        </tbsody>
+    }    
+    </table>
