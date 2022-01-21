@@ -109,10 +109,12 @@ namespace LoginAppTesting.Controllerss
         {
             try
             {
-                //PARA CREAR ROLES =  comentar todo el codigo y descomentar el codigo de abajo
+                //PARA CREAR ROLES =  descomentar el codigo de abajo
                 //ir a pestaña de signUp , crear un usuario
-                //esto NO CREARA EL USUARIO, sino que inicializara los roles
                 //luego devolver el codigo a la normalidad
+
+                /////////////////////////////////////////
+
                 /* IdentityRole role = new IdentityRole
                  {
 
@@ -125,6 +127,11 @@ namespace LoginAppTesting.Controllerss
                  };
                 await _roleManager.CreateAsync(role);
                  await _roleManager.CreateAsync(role2);  */
+
+
+
+
+                //////////////////////////////////
 
                 if (!ModelState.IsValid)
                 { return View(); 
